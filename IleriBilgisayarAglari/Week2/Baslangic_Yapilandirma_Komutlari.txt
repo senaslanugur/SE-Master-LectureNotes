@@ -1,0 +1,114 @@
+
+
+Switch ve Router gibi Cihazların Başlangıç Yapılandırmalarını Yapmak
+
+// user Exec Mod
+Switch>
+Router>
+
+// Modlar Arası Gecis
+// Privileged Exec Mod gecis enable yazılır
+Switch>enable
+Router>enable
+Switch#
+Router#
+
+//Line configuration moduna geçiş 
+  line console 0
+
+//İnterface moduna gecis: 
+//(config-line)# ‘dan (config-if)#’e geçiyor. 
+  interface FastEthernet 0/1 
+
+//exit komutu kullanlarak bir önceki moda dönülür
+Switch#exit
+Router#exit
+Switch>
+Router>
+
+//bir komutun ne işe yaradığını ögrenme 
+  ping ?
+  show ?
+
+
+
+Temel aygıt yapılandırması
+//isim verme
+  Switch(config)#hostname switch_1
+
+//User EXEC moda şifre atama
+  conf terminal
+  line console 0
+  password cisco
+  login
+  end
+
+//Privileged EXEC moda şifre atama
+  conf terminal
+  enable secret class
+  exit
+
+//VTY line erişiminine şifre atama 
+//Not: VTY hatları cihaza Telnet veya SSH kullanarak uzaktan erişim sağlar. 
+  conf terminal
+  line vty 0 15
+  password cisco
+  login
+  end
+
+//Parolaları Şifreleme 
+  conf terminal
+  service password-encryption
+  exit
+
+
+// içerigi gorme
+   show running config
+
+
+//Banner Mesajları
+  conf terminal
+  banner motd # the message of the day #
+
+//Yapılandırma Dosyaları
+startup-config //Başlatılırken veya yeniden başlatılırken aygıt tarafından kullanılacak tüm komutları içerir.
+running-config // Geçerli yapılandırmayı yansıtır,
+  show startup-config
+  show running-config
+
+//Çalışan Yapılandırmaları Değiştirme
+//Privileged EXEC modunda reload komutunu kullanarak aygıtı yeniden yükleme
+   Switch#reload
+// İstenmeyen değişiklikler, start-up config’e kaydedildi ise, priviliged EXEC modunda
+   erase startup-config 
+//Start-up config’i sildikten sonra, running-config dosyasını RAM’den temizlemek için aygıtı yeniden yükleyin
+   reload
+   
+//port ve addressler PC de yapılandır  
+
+ 
+
+//Switch Sanal Arayüz Yapılandırması (Swithch Virtual Interface Configuration (SVI))
+//Anahtara uzaktan erişmek için, Bir IP adresi ve bir alt ağ maskesi SVI üzerinde yapılandırılmalıdır.
+conf t
+interface vlan 1
+ip address 192.168.1.20 255.255.255.0
+no shutdown
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
